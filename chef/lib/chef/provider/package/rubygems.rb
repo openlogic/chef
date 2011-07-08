@@ -301,16 +301,7 @@ class Chef
 
         def initialize(new_resource, run_context=nil)
           super
-          if new_resource.gem_binary
-            if new_resource.options && new_resource.options.kind_of?(Hash)
-              msg =  "options cannot be given as a hash when using an explicit gem_binary\n"
-              msg << "in #{new_resource} from #{new_resource.source_line}"
-              raise ArgumentError, msg
-            end
-            @gem_env = AlternateGemEnvironment.new(new_resource.gem_binary)
-          else
-            @gem_env = CurrentGemEnvironment.new
-          end
+          @gem_env = AlternateGemEnvironment.new(new_resource.gem_binary)
         end
 
         def gem_dependency
